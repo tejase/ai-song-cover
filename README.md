@@ -1,34 +1,84 @@
 # CoverReel Studio
 
-Turn your vocal recording into a vertical lyric video. Run locally, tap lyrics in
-time with your voice, then use your coding agent to make the visuals your own.
+**An agent-first workspace for turning your vocal covers into bespoke music videos.**
 
-React + TypeScript + Remotion. No OpenAI API key or cloud audio upload required.
-Your coding assistant may have its own account requirements. This makes videos for
-**existing recordings**; it does not synthesize voices, generate backing tracks,
-auto-align singing, or post to Instagram.
+Bring your recording, lyrics, and a creative direction. Open this repo with
+**Codex, Cursor, Claude Code, or another coding agent**, and collaborate on a video
+made for your arrangement: original scenes, animated characters, kinetic lyrics,
+transitions, and visual moments that follow the song.
 
-## Free Browser Edition
+**The agent-led workflow is the point.** This is not just a subtitle editor or a
+collection of fixed templates. Your agent writes and revises the actual video code;
+the included editor, timing tools, and renderer support that creative process.
 
-Open <https://tejase.github.io/ai-song-cover/> for upload, lyric editing, tap sync,
-preview, and project JSON saving. Your selected recording stays in your browser;
-there is no hosted audio upload or rendering backend. Save your project before
-closing the tab. MP4 rendering is local-only: clone the repo below, open the saved
-project, and select the same recording to export, or use the command-line render.
+React + TypeScript + Remotion. No OpenAI API key or paid media-generation API is
+required by the app. Your coding assistant may have its own account requirements.
+It works with **your existing vocal recording**; it does not generate a singing
+voice, backing track, or automatic vocal alignment.
 
-GitHub Pages serves only the frontend. `npm run build:pages` builds `dist-pages/`
-with the repository base path and an allowlisted original sample; it does not copy
-the whole local `public/` folder. To test it, run `npm run preview:pages` and open
-the `/ai-song-cover/` path on the displayed local URL. The Pages workflow deploys
-on pushes to `main` once Settings > Pages > Source is set to GitHub Actions.
+## Start With Your Agent
 
-## Quick Start
+### 1. Clone and Open the Workspace
 
-Clone this repository, open its folder, and run with Node.js 22.12+ and npm:
+Clone the repo and open the folder in your coding assistant:
 
 ```sh
 git clone https://github.com/tejase/ai-song-cover.git
 cd ai-song-cover
+```
+
+Put your recording and lyrics in the Git-ignored `projects/` directory, for example
+`projects/my-cover/audio.mp3` and `projects/my-cover/lyrics.txt`. Do not commit them.
+
+### 2. Give the Agent a Brief
+
+Start with this prompt, replacing the genre and direction with your own:
+
+```text
+Read AGENTS.md and docs/AGENT_WORKFLOW.md.
+
+My vocal recording: projects/my-cover/audio.mp3
+My lyrics: projects/my-cover/lyrics.txt
+Arrangement: a rock cover, not the original pop version.
+Direction: a gritty illustrated performance with guitar/drums, bold animated
+lyrics, and distinct scenes that build toward the chorus.
+
+Set up the app and help me establish lyric timings. Propose a song-specific
+storyboard, then implement it in Remotion. Vary the framing, animation, and lyric
+treatment instead of repeating one background. Render a short proof for review,
+iterate with my feedback, and export the full vertical MP4 when ready.
+
+Keep my recording unchanged. Do not upload it or commit private files.
+Ask me about anything unclear in the creative direction. Do not claim guessed
+word timings are exact.
+```
+
+Already have a timed `.coverreel.json` project? Give the agent that path too.
+The agent reads local project instructions and edits the code in your clone;
+there is no built-in chat agent or one-click AI generation service on the website.
+
+### 3. Direct, Review, and Refine
+
+1. **Brief:** give the agent your arrangement, mood, references, and visual ideas.
+2. **Timing:** tap lyric entrances in the editor and correct them while listening.
+3. **Storyboard:** review the agent's proposed scenes before it builds the custom cut.
+4. **Implement:** the agent codes the visuals and lyric animation in Remotion.
+5. **Iterate:** review a short render and give concrete feedback on motion and timing.
+6. **Export:** render the full 1080x1920, 30 fps H.264/AAC MP4 locally.
+
+The supplied Cinematic, Illustrated Story, and Rock Stage styles are examples and
+starting points, not the limit of what a cover can look like. A custom cut can have
+its own visual world rather than reusing the same template for every song.
+
+See [the detailed agent workflow](docs/AGENT_WORKFLOW.md) and
+[project format](docs/PROJECT_FORMAT.md). [AGENTS.md](AGENTS.md) is the shared
+instruction source; `CLAUDE.md` and a Cursor rule point to it.
+
+## Quick Start
+
+To run the supporting editor yourself, use Node.js 22.12+ and npm:
+
+```sh
 npm ci
 npm run dev
 ```
@@ -36,31 +86,28 @@ npm run dev
 Open <http://127.0.0.1:5173>. The local render server runs on port 3333.
 For a single server, run `npm run serve` and open <http://127.0.0.1:3333>.
 
-1. Upload your recording (up to 100 MB / 10 minutes) and paste lyrics, one line per shot.
-2. Play audio in Tap Sync and tap each line at its vocal entrance. Undo or edit times.
-3. Preview Cinematic, Illustrated Story, or Rock Stage. Blank lines define story sections.
-4. Export a 1080x1920, 30 fps H.264/AAC MP4 to `outputs/reels/`.
+Upload audio (up to 100 MB / 10 minutes), paste lyrics, and use Tap Sync to mark
+line entrances. Preview the composition and export to `outputs/reels/`.
+The folder/save icons open/save `.coverreel.json` files. Audio is not embedded:
+reselect the matching recording after reopening. Save before closing or reloading;
+there is no automatic project saving. Word sweeps without supplied word timings
+are expressive estimates, not verified vocal alignment.
 
-Use the folder/save icons to open/save `.coverreel.json` files. Audio is not embedded:
-select the matching recording after reopening. Work is not automatically saved;
-save a project before reloading or closing the tab.
+## Free Browser Edition
 
-## Make It Yours With an Agent
+[Try the supporting editor](https://tejase.github.io/ai-song-cover/) without installing
+anything: upload audio, edit lyrics, tap sync, preview the built-in styles, and save
+project JSON. Your selected audio stays in your browser. Bring the saved project and
+recording into your local clone for agent-created visuals and MP4 export.
 
-Open the clone in Codex, Cursor, Claude Code, or another coding assistant. Start with:
+**The website is the editor, not the coding-agent workspace or an online renderer.**
+It has no hosted audio upload/render backend and does not post to Instagram.
 
-> Read AGENTS.md and docs/AGENT_WORKFLOW.md. My recording is in projects/my-cover.mp3.
-> My lyrics and timed project are in projects/my-cover.coverreel.json. This is a rock
-> cover, not the original pop arrangement. Create a song-specific visual storyboard
-> and implement it. Keep my recording unchanged, use my tap timings, vary scenes and
-> lyric treatments, and render a short proof before the full Reel. Do not upload my
-> audio or commit private files. Ask me about the mood if it isn't clear.
-
-The built-in styles are starting points, not an automatic AI video generator.
-Agents can implement original characters, scenes, transitions, and lyric treatments
-in the composition. See [the workflow](docs/AGENT_WORKFLOW.md) and
-[project format](docs/PROJECT_FORMAT.md). `AGENTS.md` is the shared instruction source;
-`CLAUDE.md` and a Cursor rule point to it.
+GitHub Pages serves only the frontend. `npm run build:pages` builds `dist-pages/`
+with the repository base path and an allowlisted original sample; it does not copy
+the whole local `public/` folder. To test it, run `npm run preview:pages` and open
+the `/ai-song-cover/` path on the displayed local URL. The Pages workflow deploys
+on pushes to `main` once Settings > Pages > Source is set to GitHub Actions.
 
 ## Command-Line Render
 
