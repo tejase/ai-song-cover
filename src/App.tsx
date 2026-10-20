@@ -37,6 +37,7 @@ import {SceneThumbnail} from './remotion/IllustratedVideo';
 import {parseLyrics} from './lib/lyrics';
 import {rockShots} from './lib/rock';
 import {MAX_PROJECT_BYTES, parseProjectFile, serializeProject} from './lib/projectFile';
+import {isStaticHosting, sampleAudioUrl} from './lib/hosting';
 import type {RenderResponse, SongProject, ViewName} from './types';
 
 const MAX_AUDIO_SIZE_MB = 100;
@@ -142,7 +143,7 @@ export const App: React.FC = () => {
 
   const loadSample = async () => {
     try {
-      const response = await fetch('/sample.wav');
+      const response = await fetch(sampleAudioUrl);
       if (!response.ok) throw new Error('Sample audio is unavailable.');
       const file = new File([await response.blob()], 'Moonlight Study.wav', {type: 'audio/wav'});
       const lyrics = 'Rain writes on the window\nAnd the city falls asleep\n\nOver quiet hills we wander\nWhere the moonlight runs deep\n\nLet the ocean carry echoes\nOf a melody we keep\n\nOne light waits upon the stage\nFor the song we have to sing';
@@ -308,6 +309,7 @@ export const App: React.FC = () => {
   };
 
   const handleRender = async () => {
+    if (isStaticHosting) return;
     if (!audioFile || !project.lines.length) {
       setRenderStatus('Add audio and lyrics before exporting.');
       return;
@@ -392,7 +394,7 @@ export const App: React.FC = () => {
       <main className="workspace">
         <header className="top-bar">
           <div>
-            <p className="eyebrow">Tap-to-sync lyric video maker</p>
+            <p className="eyebrow">{isStaticHosting ? 'Browser edition' : 'Tap-to-sync lyric video maker'}</p>
             <h1>{project.title}</h1>
           </div>
           <div className="project-actions">
@@ -742,7 +744,13 @@ export const App: React.FC = () => {
                 <span>9:16</span>
               </div>
 
-              <button
+              {isStaticHosting ? <>
+                <p className="render-status">MP4 rendering is available in the local app only.</p>
+                <button type="button" className="primary-action" onClick={saveProject}>
+                  <Save size={18}/> Save project
+                </button>
+                <a className="download-link" href="https://github.com/tejase/ai-song-cover#quick-start" target="_blank" rel="noreferrer">Get local app</a>
+              </> : <button
                 type="button"
                 className="primary-action"
                 disabled={rendering || !syncComplete}
@@ -750,9 +758,9 @@ export const App: React.FC = () => {
               >
                 <Download size={18} />
                 {rendering ? 'Rendering...' : 'Render MP4'}
-              </button>
+              </button>}
 
-              {!syncComplete ? <p className="render-status">Tap every lyric line before exporting.</p> : null}
+              {!syncComplete && !isStaticHosting ? <p className="render-status">Tap every lyric line before exporting.</p> : null}
 
               {renderStatus ? <p className="render-status">{renderStatus}</p> : null}
               {renderOutputUrl ? (

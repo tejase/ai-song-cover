@@ -12,6 +12,8 @@
     "dev:server": "node --import tsx src/server/render-server.ts",
     "serve": "npm run build && npm run render:server",
     "build": "tsc --noEmit && vite build",
+    "build:pages": "tsc --noEmit && node scripts/build-pages.mjs",
+    "preview:pages": "vite preview --mode pages --host 127.0.0.1",
     "test": "vitest run",
     "sample": "node scripts/generate-sample.mjs && node --import tsx scripts/create-example.mts",
     "render": "node --import tsx scripts/render.mts",

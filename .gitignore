@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-pages/
 .vite/
 .DS_Store
 work/

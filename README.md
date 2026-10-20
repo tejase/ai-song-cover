@@ -8,6 +8,20 @@ Your coding assistant may have its own account requirements. This makes videos f
 **existing recordings**; it does not synthesize voices, generate backing tracks,
 auto-align singing, or post to Instagram.
 
+## Free Browser Edition
+
+Open <https://tejase.github.io/ai-song-cover/> for upload, lyric editing, tap sync,
+preview, and project JSON saving. Your selected recording stays in your browser;
+there is no hosted audio upload or rendering backend. Save your project before
+closing the tab. MP4 rendering is local-only: clone the repo below, open the saved
+project, and select the same recording to export, or use the command-line render.
+
+GitHub Pages serves only the frontend. `npm run build:pages` builds `dist-pages/`
+with the repository base path and an allowlisted original sample; it does not copy
+the whole local `public/` folder. To test it, run `npm run preview:pages` and open
+the `/ai-song-cover/` path on the displayed local URL. The Pages workflow deploys
+on pushes to `main` once Settings > Pages > Source is set to GitHub Actions.
+
 ## Quick Start
 
 Clone this repository, open its folder, and run with Node.js 22.12+ and npm:

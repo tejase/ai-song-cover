@@ -4,6 +4,11 @@ Single-user local tool, not a multi-tenant service. Keep it bound to 127.0.0.1.
 Do not tunnel it publicly: exports and temporary uploads are served without auth.
 Only one render runs at a time.
 
+The GitHub Pages edition is static and never calls the render API. User-selected
+audio is a local browser object URL, not an upload. Its deployment artifact contains
+only the frontend and the included original sample. Do not replace the allowlisted
+Pages build with a wholesale upload of local `public/`, `dist/`, or the workspace.
+
 Audio stays in the browser until export, then goes to your loopback server.
 Temporary uploads are removed on success/failure. A process crash may leave files
 in `work/uploads/`; inspect/remove them locally when appropriate. Exports remain
