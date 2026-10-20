@@ -1,0 +1,7 @@
+---
+description: CoverReel privacy and custom cover workflow
+alwaysApply: true
+---
+
+Read and follow AGENTS.md and docs/AGENT_WORKFLOW.md at the repository root.
+Keep private recordings, lyrics, analysis, and outputs out of commits.

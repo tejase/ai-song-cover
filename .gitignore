@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vite/
+.DS_Store
+work/
+outputs/
+private/
+projects/
+public/covers/
+src/lib/beautyBeat*
+src/remotion/beautyBeat/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log

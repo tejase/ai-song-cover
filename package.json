@@ -1,0 +1,45 @@
+{
+  "name": "coverreel-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first lyric videos for your own vocal covers, built with React and Remotion.",
+  "license": "MIT",
+  "engines": {"node": ">=22.12.0"},
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "vite --host 127.0.0.1",
+    "dev:server": "node --import tsx src/server/render-server.ts",
+    "serve": "npm run build && npm run render:server",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "sample": "node scripts/generate-sample.mjs && node --import tsx scripts/create-example.mts",
+    "render": "node --import tsx scripts/render.mts",
+    "check:public": "node scripts/check-public.mjs",
+    "render:server": "node --import tsx src/server/render-server.ts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.0",
+    "@remotion/player": "^4.0.0",
+    "@remotion/renderer": "^4.0.0",
+    "express": "^5.0.0",
+    "lucide-react": "^0.468.0",
+    "multer": "^2.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^9.1.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^8.3.4",
+    "vitest": "^4.1.11"
+  }
+}
